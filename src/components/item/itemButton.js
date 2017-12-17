@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const ItemButton = ({ watch, paramsId }, context) => {
   return (

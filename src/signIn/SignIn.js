@@ -3,27 +3,31 @@ import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import './SignIn.scss';
 import { signIn } from './SignIn.Actions';
+import { push } from 'react-router-redux';
 
+// @TODO. Rethink this component
 class SignIn extends Component {
-  componentWillReceiveProps({ signInState }) {
-    if (signInState.get('token') && signInState.get('token')) {
-      localStorage.setItem('id_token', signInState.get('token'));
+  componentWillReceiveProps({ signInState, router }) {
+    const token = signInState.get('token');
+
+    if (signInState.get('token')) {
+      localStorage.setItem('id_token', token);
       localStorage.setItem('groups', signInState.get('groups').join(' '));
-      this.props.router.push('/');
+
+      router.push('/');
     }
   }
 
   onSignIn = (e) => {
-    const { boundSignIn } = this.props;
-    boundSignIn({
+    const { signIn } = this.props;
+    signIn({
       email: this.emailField.input.value,
       password: this.passwordField.input.value
     });
-  }
+  };
 
   render() {
     return (
@@ -47,7 +51,7 @@ class SignIn extends Component {
 }
 
 SignIn.propTypes = {
-  boundSignIn: PropTypes.func,
+  signIn: PropTypes.func,
   signInState: PropTypes.object
 };
 
@@ -55,9 +59,7 @@ export default connect((store) => {
   return {
     signInState: store.signIn
   };
-}, (dispatch) => {
-  return {
-    boundSignIn: bindActionCreators(signIn, dispatch)
-  };
-})(SignIn);
+},
+{ signIn, push })
+(SignIn);
 

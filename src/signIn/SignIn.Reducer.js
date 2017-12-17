@@ -3,10 +3,10 @@ import createReducer from '../utils/utils';
 import { SIGN_IN_SUCCESS, SIGN_OUT } from './SignIn.Actions';
 
 let token = '';
-let groups = [];
+let groups = null;
 try {
   token = window.localStorage.getItem('id_token');
-  groups = window.localStorage.getItem('groups');
+  groups = window.localStorage.getItem('groups') || [];
   if (typeof groups === 'string') {
     groups = groups.split(' ');
   }

@@ -28,7 +28,6 @@
     "jsx-quotes": ["error", "prefer-double"],
     "max-len": ["error", 120],
     "comma-dangle": ["error", "never"],
-    "react/jsx-space-before-closing": ["error", "never"],
     "react/prefer-stateless-function": [0],
     "react/forbid-prop-types":[0],
     "no-else-return": [0],
