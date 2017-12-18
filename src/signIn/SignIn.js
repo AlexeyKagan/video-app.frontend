@@ -10,22 +10,14 @@ import { push } from 'react-router-redux';
 
 // @TODO. Rethink this component
 class SignIn extends Component {
-  componentWillReceiveProps({ signInState, router }) {
-    const token = signInState.get('token');
+  onSignIn = () => {
+    const { signIn, push } = this.props;
 
-    if (signInState.get('token')) {
-      localStorage.setItem('id_token', token);
-      localStorage.setItem('groups', signInState.get('groups').join(' '));
-
-      router.push('/');
-    }
-  }
-
-  onSignIn = (e) => {
-    const { signIn } = this.props;
     signIn({
-      email: this.emailField.input.value,
-      password: this.passwordField.input.value
+      email: this.emailField.input.value, // @TODO
+      password: this.passwordField.input.value // @TODO
+    }).then(() => {
+      push('/');
     });
   };
 
@@ -59,7 +51,5 @@ export default connect((store) => {
   return {
     signInState: store.signIn
   };
-},
-{ signIn, push })
-(SignIn);
+}, { signIn, push })(SignIn);
 

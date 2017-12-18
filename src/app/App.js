@@ -16,45 +16,30 @@ import FormUser from '../administration/components/formUser/formUser';
 
 
 class App extends Component {
-  getChildContext() {
-    return {router: this.props.router};
-  }
-
   render() {
     return (
-      <Router>
-        <div>
-          <Header />
-          <div className="app-pages">
-            <Content />
+      <div>
+        <Header />
+        <div className="app-pages">
+          <Switch>
+            <Route exact path="/" component={Content} />
+            <Route path="/signin" component={SignIn} />
+            {/*<Route path="/signup" component={SignUp} />*/}
+            {/*<Route path="/movies/:id" component={Movie} />*/}
 
-            <Switch>
-              <Route path="/movies/:id" component={Movie} />
-              <Route path="/signin" component={SignIn} />
-              <Route path="/signup" component={SignUp} />
-
-              <CheckAuth requiredGroups={['ADMIN', 'MODERATOR']}>
-                <Route path="administration/:group" component={Administration} />
-                {/*<Route path="administration/:group">*/}
-                  {/*<Route path="movies/new" component={FormMovie} />*/}
-                  {/*<Route path="movies/:id/edit" component={FormMovie} />*/}
-                  {/*<Route path="users/:id/edit" component={FormUser} />*/}
-                {/*</Route>*/}
-              </CheckAuth>
-            </Switch>
-          </div>
+            {/*<CheckAuth requiredGroups={['ADMIN', 'MODERATOR']}>*/}
+              {/*<Route path="/administration/:group" component={Administration} />*/}
+              {/*<Route path="administration/:group">*/}
+                {/*<Route path="movies/new" component={FormMovie} />*/}
+                {/*<Route path="movies/:id/edit" component={FormMovie} />*/}
+                {/*<Route path="users/:id/edit" component={FormUser} />*/}
+              {/*</Route>*/}
+            {/*</CheckAuth>*/}
+          </Switch>
         </div>
-      </Router>
+      </div>
     );
   }
 }
-
-App.propTypes = {
-  router: PropTypes.object.isRequired
-};
-
-App.childContextTypes = {
-  router: PropTypes.object
-};
 
 export default App;

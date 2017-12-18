@@ -22,6 +22,8 @@ const initialState = {
 function signIn(state, { payload }) {
   let copyState = state;
   copyState = copyState.set('token', payload.token);
+  localStorage.setItem('id_token', payload.token);
+  localStorage.setItem('groups', payload.user.groups.join(' '));
   return copyState.set('groups', Immutable.fromJS(payload.user.groups));
 }
 
